@@ -7,18 +7,29 @@ const ramenRestaurant = document.querySelector('.restaurant');
 const ramenRating = document.querySelector('#rating-display');
 const ramenComment = document.querySelector('#comment-display');
 const ramenDetailImage = document.querySelector('.detail-image');
-const form = document.querySelector('form');
+const updateRamenRating = document.querySelector('#new-rating');
+const updateRamenComment = document.querySelector('#new-comment');
+const form = document.querySelector('#new-ramen');
+const updateForm = document.querySelector('#edit-ramen');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    currRamen = {
+    const newRamen = {
         name: form['new-name'].value,
-        image: './assets/ramen/shoyu.jpg',
+        image: form['new-image'].value,
         restaurant: form['new-restaurant'].value,
         rating: form['new-rating'].value,
         comment: form['new-comment'].value,
     };
-    addRamenItems(currRamen);
+    addRamenItems(newRamen);
+    form.reset();
+})
+
+updateForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    currRamen.rating = updateForm['update-rating'].value;
+    currRamen.comment = updateForm['update-comment'].value;
+    renderRamenItems(currRamen);
     form.reset();
 })
 
@@ -39,6 +50,7 @@ function addRamenItems(ramenObj){
 }
 
 function renderRamenItems(ramenObj){
+    currRamen = ramenObj;
     ramenName.textContent = ramenObj.name;
     ramenRestaurant.textContent = ramenObj.restaurant;
     ramenRating.textContent = ramenObj.rating;
